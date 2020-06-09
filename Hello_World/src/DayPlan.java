@@ -1,3 +1,5 @@
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class DayPlan {
 String Name;
@@ -21,11 +23,18 @@ public String getAddress() {
 public void setAddress(String address) {
 	this.Address = address;
 }
-//DayPlan(String[] value){
-//	if(value.length==3) {
-//	Name=value[0];
-//	Age=Integer.valueOf(value[1]);
-//	Address=value[2];
-//	}
-//}
+DayPlan(){
+	
+}
+DayPlan(String[] value){
+	Name=value[0];
+	Age=Integer.parseInt(value[1]);
+	Address=value[2];
+	}
+JSONObject DayPlanToJSON(DayPlan Test) throws JSONException{
+	//DayPlan Test=new DayPlan();
+	JSONObject result=JSONSynthesizer.SynthesizerJSONList("cese",Test);
+	System.out.println(result);
+	return result;
+}
 }

@@ -1,5 +1,7 @@
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,68 +10,72 @@ import java.util.Map;
 public class JSONSynthesizer {
 	 /**
      * 合成Json文件
+	 * @throws JSONException 
      * */
-    public static String SynthesizerJSON(String[] Key,String[] Value){
+    public static JSONObject SynthesizerJSON(DayPlan DP) throws JSONException{
        try{
-           if(Key.length==Value.length){
-               JSONObject JSON = new JSONObject();
-               for (int i=0;i<Key.length;i++){
-                   JSON.put(Key[i],Value[i]);
-               }
-               return JSON.toString();
-           }
-           else {
-               return "键值对数量不匹配，请检查！";
-           }
+   			Field[] fields = DP.getClass().getDeclaredFields();
+   		    JSONObject JSON = new JSONObject();
+   			for(int i = 0 ; i < fields.length ; i++) {
+				    //设置是否允许访问，不是修改原来的访问权限修饰词。
+					fields[i].setAccessible(true);
+					JSON.put(fields[i].getName(), fields[i].get(DP));//将类中字段名存为Key,字段值存为Value
+				}	
+   			return JSON;
        }
        catch(Exception ex){
-           return ex.getMessage();
+    	   JSONObject JSON = new JSONObject();
+    	   JSON.put("result","Json转换异常！");
+           return JSON;
        }
     }
     /**
      * 合成Json-List文件
+     * @throws JSONException 
      * */
-    public static String SynthesizerJSONList(String Key,String[] ValueKey,String[] ValueValue){
+    public static JSONObject SynthesizerJSONList(String Key,Object DP) throws JSONException{
         try{
-            if(ValueKey.length==ValueValue.length){
+//        	DayPlan DP=(DayPlan)DP1;
                 JSONObject JSON = new JSONObject();
                 List<Object> list = new ArrayList<Object>();
-                for (int i = 0; i < ValueKey.length; i++) {
+                Field[] fields = DP.getClass().getDeclaredFields();
+                for (int i = 0; i < fields.length; i++) {
                     Map<String, Object> map = new HashMap<String, Object>();
-                    map.put(ValueKey[i],  ValueValue[i]);
+                    //设置是否允许访问，不是修改原来的访问权限修饰词。
+					fields[i].setAccessible(true);
+                    map.put(fields[i].getName(), fields[i].get(DP));
                     list.add(map);
                 }
-                JSON.put(Key, list);
-                return JSON.toString();
-            }
-            else {
-                return "键值对数量不匹配，请检查！";
-            }
+                JSON.put(Key, list); 
+                return JSON;
         }
         catch(Exception ex){
-            return ex.getMessage();
+        	JSONObject JSON = new JSONObject();
+     	    JSON.put("result","Json转换异常！");
+            return JSON;
         }
     }
     /**
      * 合成Json-Json文件
+     * @throws JSONException 
      * */
-    public static String SynthesizerJSONJSON(String Key,String[] ValueKey,String[] ValueValue){
+    public static JSONObject SynthesizerJSONJSON(String Key,DayPlan DP) throws JSONException{
         try{
-            if(ValueKey.length==ValueValue.length){
-                JSONObject JSONOne = new JSONObject();
-                JSONObject JSONTwo = new JSONObject();
-                for (int i = 0; i < ValueKey.length; i++) {
-                    JSONTwo.put(ValueKey[i], ValueValue[i]);
-                }
-                JSONOne.put(Key,JSONTwo);
-                return JSONOne.toString();
+        	JSONObject JSONOne = new JSONObject();
+            JSONObject JSONTwo = new JSONObject();
+            Field[] fields = DP.getClass().getDeclaredFields();
+            for (int i = 0; i < fields.length; i++) {
+            	//设置是否允许访问，不是修改原来的访问权限修饰词。
+				fields[i].setAccessible(true);
+                JSONTwo.put(fields[i].getName(), fields[i].get(DP));
             }
-            else {
-                return "键值对数量不匹配，请检查！";
-            }
+            JSONOne.put(Key,JSONTwo);
+            return JSONOne;
         }
         catch(Exception ex){
-            return ex.getMessage();
+        	JSONObject JSON = new JSONObject();
+     	    JSON.put("result","Json转换异常！");
+            return JSON;
         }
     }
 }
