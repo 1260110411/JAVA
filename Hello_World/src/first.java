@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.sql.Connection;
 
@@ -6,7 +8,7 @@ import org.json.JSONObject;
 
 public class first {
 
-	public static void main(String[] args) throws JSONException {
+	public static void main(String[] args) throws JSONException, IOException {
 		// TODO Auto-generated method stub
 //		 String[] key={"≤‚ ‘","DE"};
 //	        String[] value={"INL123","123"};
@@ -43,11 +45,17 @@ public class first {
 //			"Context.Default.VS.Core.User.IsOptedIn":"True","Reserved.ChannelUsed":"aivortex"}
          
          
-		String[] key=new String[3];
-	    String[] value={"INL123","123","12"};
-		DayPlan Test=new DayPlan(value);
+	     String[] value={"INL123","123","12"};
+	     DayPlan Test=new DayPlan(value);
 		JSONObject result=Test.DayPlanToJSON(Test);
 //        JSONObject result=JSONSynthesizer.SynthesizerJSONList("cese",Test);
 		 System.out.println(result);
+
+		 String fileName = "C:\\Users\\PXG\\Desktop\\log.txt"; 
+		 FileWriter fw = new FileWriter(fileName, true);
+		 String AS1="ad";
+		 fw.write(AS1);
+		 fw.write("\r\n");
+		 fw.close();
 	}
 }
