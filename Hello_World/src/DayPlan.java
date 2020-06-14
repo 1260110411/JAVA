@@ -23,17 +23,27 @@ public String getAddress() {
 public void setAddress(String address) {
 	this.Address = address;
 }
-DayPlan(){
+public DayPlan(){
 	
 }
-DayPlan(String[] value){
+public DayPlan(String[] value){
 	Name=value[0];
 	Age=Integer.parseInt(value[1]);
 	Address=value[2];
-	}
-JSONObject DayPlanToJSON(DayPlan Test) throws JSONException{
-	//DayPlan Test=new DayPlan();
+}
+
+public JSONObject DayPlanToJSON(DayPlan Test) throws JSONException{
+	JSONObject result=JSONSynthesizer.SynthesizerJSON(Test);
+	System.out.println(result);
+	return result;
+}
+public JSONObject DayPlanToJSONList(DayPlan Test) throws JSONException{
 	JSONObject result=JSONSynthesizer.SynthesizerJSONList("cese",Test);
+	System.out.println(result);
+	return result;
+}
+public JSONObject DayPlanToJSONJSON(DayPlan Test) throws JSONException{
+	JSONObject result=JSONSynthesizer.SynthesizerJSONJSON("cese",Test);
 	System.out.println(result);
 	return result;
 }

@@ -12,7 +12,7 @@ public class JSONSynthesizer {
      * 合成Json文件
 	 * @throws JSONException 
      * */
-    public static JSONObject SynthesizerJSON(DayPlan DP) throws JSONException{
+    public static JSONObject SynthesizerJSON(Object DP) throws JSONException{
        try{
    			Field[] fields = DP.getClass().getDeclaredFields();
    		    JSONObject JSON = new JSONObject();
@@ -59,7 +59,7 @@ public class JSONSynthesizer {
      * 合成Json-Json文件
      * @throws JSONException 
      * */
-    public static JSONObject SynthesizerJSONJSON(String Key,DayPlan DP) throws JSONException{
+    public static JSONObject SynthesizerJSONJSON(String Key,Object DP) throws JSONException{
         try{
         	JSONObject JSONOne = new JSONObject();
             JSONObject JSONTwo = new JSONObject();
