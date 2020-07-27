@@ -4,6 +4,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,7 @@ public class JSONSynthesizer {
     public static JSONObject SynthesizerJSON(Object DP) throws JSONException{
        try{
    			Field[] fields = DP.getClass().getDeclaredFields();
-   		    JSONObject JSON = new JSONObject();
+   		    JSONObject JSON = new JSONObject(new LinkedHashMap());
    			for(int i = 0 ; i < fields.length ; i++) {
 				    //设置是否允许访问，不是修改原来的访问权限修饰词。
 					fields[i].setAccessible(true);
@@ -36,7 +37,7 @@ public class JSONSynthesizer {
     public static JSONObject SynthesizerJSONList(String Key,Object DP) throws JSONException{
         try{
 //        	DayPlan DP=(DayPlan)DP1;
-                JSONObject JSON = new JSONObject();
+                JSONObject JSON = new JSONObject(new LinkedHashMap());
                 List<Object> list = new ArrayList<Object>();
                 Field[] fields = DP.getClass().getDeclaredFields();
                 for (int i = 0; i < fields.length; i++) {
@@ -61,8 +62,8 @@ public class JSONSynthesizer {
      * */
     public static JSONObject SynthesizerJSONJSON(String Key,Object DP) throws JSONException{
         try{
-        	JSONObject JSONOne = new JSONObject();
-            JSONObject JSONTwo = new JSONObject();
+        	JSONObject JSONOne = new JSONObject(new LinkedHashMap());
+            JSONObject JSONTwo = new JSONObject(new LinkedHashMap());
             Field[] fields = DP.getClass().getDeclaredFields();
             for (int i = 0; i < fields.length; i++) {
             	//设置是否允许访问，不是修改原来的访问权限修饰词。

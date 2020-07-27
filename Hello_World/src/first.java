@@ -33,9 +33,11 @@ public class first {
 //	     JSONObject result= Start.st(value);
 //	     String as=result.toString();
 	     
-	     JSONObject result=new JSONObject();
-	     DayPlan Test=new DayPlan(value);
-		 result=Test.DayPlanToJSONJSON(Test);
-		  System.out.println(result.toString());
+//	     JSONObject result=new JSONObject();
+//	     DayPlan Test=new DayPlan(value);
+//		 result=Test.DayPlanToJSONJSON(Test);
+//		  System.out.println(result.toString());
+	     person p=new teacher();
+	     p.work();
 	}
 }
